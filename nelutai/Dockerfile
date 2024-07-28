@@ -1,0 +1,23 @@
+FROM python:3.11
+
+RUN mkdir /app
+WORKDIR /app
+ADD requirements.txt requirements.txt
+RUN pip install -r requirements.txt
+ADD nelutai nelutai
+ENV HANDLER=""
+ENV SA_NAME=""
+ENV SA_KEY=""
+ENV BLOB_ENDPOINT=""
+ENV SA_CONTAINER_CHATS=""
+ENV SA_CONTAINER_CHROMA=""
+ENV VIBER_AUTH_TOKEN=""
+ENV AZURE_OPENAI_API_KEY=""
+ENV AZURE_OPENAI_ENDPOINT=""
+ENV AZURE_OPENAI_DEPLOYMENT_NAME=""
+ENV AZURE_OPENAI_DEPLOYMENT_NAME_EMBEDDINGS=""
+ENV AZURE_OPENAI_API_VERSION=""
+ENV AZURE_OPENAI_API_VERSION_EMBEDDINGS=""
+EXPOSE 8000
+
+CMD ["python", "-m", "uvicorn", "--host", "0.0.0.0", "nelutai.presentation.asgi:app"]
