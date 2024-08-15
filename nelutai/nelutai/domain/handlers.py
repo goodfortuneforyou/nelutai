@@ -12,28 +12,36 @@ from .response import Response
 def _normalize_text(text: str) -> str:
     return unidecode(text.lower())
 
+
 def finish_conversation_wrapper(handler):
     def wrapper(
         context: Conversation,
         message: str,
         cities: pd.DataFrame = None,
-        cities_with_tags: pd.DataFrame = None,        
+        cities_with_tags: pd.DataFrame = None,
     ):
-        if message == Constants.finish_conversation:
+
+        if [
+            fc
+            for fc in Constants.finish_conversation
+            if fc.lower() in message.lower()
+        ]:
             response = Constants.finish_conversation_message
             context.message_history += [message, response]
             context.state = State.ENDED
             return Response(message=response)
         else:
             return handler(context, message, cities, cities_with_tags)
+
     return wrapper
+
 
 def change_location_wrapper(handler):
     def wrapper(
         context: Conversation,
         message: str,
         cities: pd.DataFrame = None,
-        cities_with_tags: pd.DataFrame = None,        
+        cities_with_tags: pd.DataFrame = None,
     ):
         if message == Constants.change_location:
             response = Constants.change_location_message
@@ -41,17 +49,21 @@ def change_location_wrapper(handler):
             return Response(message=response)
         else:
             return handler(context, message, cities, cities_with_tags)
+
     return wrapper
+
 
 def change_interests_wrapper(handler):
     def wrapper(
         context: Conversation,
         message: str,
         cities: pd.DataFrame = None,
-        cities_with_tags: pd.DataFrame = None,        
+        cities_with_tags: pd.DataFrame = None,
     ):
         if message == Constants.change_interests:
-            response = Constants.change_interests_message.format(city=context.location)
+            response = Constants.change_interests_message.format(
+                city=context.location
+            )
             city = _normalize_text(context.location)
             options = list(
                 cities_with_tags[cities_with_tags['city'] == city]['tag']
@@ -60,7 +72,9 @@ def change_interests_wrapper(handler):
             return Response(message=response, options=options)
         else:
             return handler(context, message, cities, cities_with_tags)
+
     return wrapper
+
 
 def welcome(
     context: Conversation,
@@ -71,6 +85,7 @@ def welcome(
     response = Constants.welcome_message
     context.state = State.ASKED_LOCATION
     return Response(message=response)
+
 
 @finish_conversation_wrapper
 @change_location_wrapper

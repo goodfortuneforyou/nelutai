@@ -7,10 +7,12 @@ from starlette.requests import Request
 from starlette.responses import HTMLResponse
 from starlette.routing import Route
 
-from nelutai.application.testing import \
-    handle_application_request as testing_handler
-from nelutai.application.viber import \
-    handle_application_request as viber_handler
+from nelutai.application.testing import (
+    handle_application_request as testing_handler,
+)
+from nelutai.application.viber import (
+    handle_application_request as viber_handler,
+)
 
 
 async def handle_request(request: Request):

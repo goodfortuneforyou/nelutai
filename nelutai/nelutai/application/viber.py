@@ -7,8 +7,11 @@ from viberbot import Api
 from viberbot.api.bot_configuration import BotConfiguration
 from viberbot.api.event_type import EventType
 from viberbot.api.messages import TextMessage
-from viberbot.api.viber_requests import (ViberConversationStartedRequest,
-                                         ViberMessageRequest, ViberRequest)
+from viberbot.api.viber_requests import (
+    ViberConversationStartedRequest,
+    ViberMessageRequest,
+    ViberRequest,
+)
 
 from nelutai.application.exceptions import NotAuthorizedError
 from nelutai.application.helpers import RequestHandler
@@ -50,7 +53,7 @@ def get_keyboard(
         additional_buttons.append(get_btn(6, Constants.change_location))
     if new_state > State.ASKED_INTERESTS:
         additional_buttons.append(get_btn(6, Constants.change_interests))
-    additional_buttons.append(get_btn(6, Constants.finish_conversation))
+    additional_buttons.append(get_btn(6, Constants.finish_conversation[0]))
     return {
         'Type': 'keyboard',
         'BgColor': '#FFFFFF',
@@ -62,7 +65,7 @@ def get_keyboard(
             )
             for ind, option in enumerate(options)
         ]
-        + additional_buttons
+        + additional_buttons,
     }
 
 
