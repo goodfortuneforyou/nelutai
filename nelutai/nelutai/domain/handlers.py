@@ -83,8 +83,9 @@ def welcome(
     cities_with_tags: pd.DataFrame = None,
 ) -> Response:
     response = Constants.welcome_message
+    formatted_cities = ', '.join([c.title() for c in cities['city'].values])
     context.state = State.ASKED_LOCATION
-    return Response(message=response)
+    return Response(message=response.format(cities = formatted_cities))
 
 
 @finish_conversation_wrapper

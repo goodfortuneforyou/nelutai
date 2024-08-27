@@ -2,7 +2,7 @@ import os
 
 
 class Constants:
-    welcome_message = 'Hello! My name is NelutAI and I will be your digital assistant helping you on your journey! To start, please tell me which place interests you. To ensure accurate results, please only write the name of the place.'
+    welcome_message = 'Hello! My name is NelutAI and I will be your digital assistant helping you on your journey! To start, please tell me which place interests you. To ensure accurate results, please only write the name of the place. I currently have information about {cities}.'
     finish_conversation = ['Finish conversation', 'Thank you']
     finish_conversation_message = 'Thank you for using NelutAI. Please feel free to check in with me at any time in the future and enjoy your stay!'
     interests_message = 'That sounds like a really nice place! Could you please tell me what you would like to see there?'
