@@ -2,6 +2,7 @@ import os
 from functools import cache
 from typing import Dict, List, Mapping, Tuple
 
+
 import pandas as pd
 from viberbot import Api
 from viberbot.api.bot_configuration import BotConfiguration
